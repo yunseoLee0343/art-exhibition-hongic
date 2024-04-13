@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" >
+  <link rel="stylesheet" href="./css/style.css">
+  <title>document</title>
+</head>
+
+<body id="body">
+<div id="bg-video">
+  <video id="bg-video__content" autoplay muted loop>
+    <source src="./img/Background_video.mp4">
+  </video>
+</div>
+
+<div class="container">
+  <div id="container_img1"><img class="small-image" id="img1" src="./img/char_01_min.gif" alt="error"></div>
+  <div id="container_img2"><img class="small-image" id="img2" src="./img/char_02_min.gif" alt="error"></div>
+  <div id="container_img3"><img class="small-image" id="img3" src="./img/char_03.gif" alt="error"></div>
+  <div id="container_img4"><img class="small-image" id="img4" src="./img/char_04_min.gif" alt="error"></div>
+  <div id="container_img5"><img class="small-image" id="img5" src="./img/char_05_min.gif" alt="error"></div>
+  <div id="container_img6"><img class="small-image" id="img6" src="./img/char_06_min.gif" alt="error"></div>
+  <div id="container_img7"><img class="small-image" id="img7" src="./img/char_07_min.GIF" alt="error"></div>
+  <div id="container_img8"><img class="small-image" id="img8" src="./img/char_08_min.GIF" alt="error"></div>
+  <div id="container_img9"><img class="small-image" id="img9" src="./img/char_09_min.gif" alt="error"></div>
+  <div id="container_img10"><img class="small-image" id="img10" src="./img/char_10_min.gif" alt="error"></div>
+</div>
+
+<div id="image_popup">
+  <button id="close-btn">X</button> <br>
+  <img class="large-image" src="" alt="">
+</div>
+
+
+<!-- <p id="test">XXXXX</p> -->
+</body>
+</html>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<script>
+  $(document).ready(function() {
+    document.getElementById("image_popup").style.display = 'none';
+    preload(
+      "./charImag/char_01_min.gif",
+      "./charImag/char_02_min.gif",
+      "./charImag/char_03.gif",
+      "./charImag/char_04_min.gif",
+      "./charImag/char_05_min.gif",
+      "./charImag/char_06_min.gif",
+      "./charImag/char_07_min.GIF",
+      "./charImag/char_08_min.GIF",
+      "./charImag/char_09_min.gif",
+      "./charImag/char_10_min.gif"
+    )
+  });
+
+
+  $(document).ready(function() {
+    $(".small-image").click(function() {
+      $("#image_popup").hide();
+
+      var path = $(this).attr('src');
+      $('.large-image').attr('src',path);
+
+      // document.getElementById("test").innerText = path;
+
+      $("#image_popup").fadeIn();
+    })
+
+    $("#close-btn").click(function() {
+      $("#image_popup").hide();
+    })
+  });
+
+  $(document).ready(function(){
+    var w = window.outerWidth;
+    var h = window.outerHeight;
+
+    /* Background
+    document.getElementById("body").style.width= w.toString()+"px";
+    document.getElementById("body").style.height= h.toString()+"px";
+    */
+
+    /* Screen ratio- 1px */
+    var r = (600/5120) * w;
+    var s = r.toString();
+
+    /* Image size */
+    var items = document.getElementsByClassName("small-image");
+    for(i=0; i<items.length; i++) {
+      items[i].style.width = s+"px";
+      items[i].style.height= s+"px";
+    }
+
+    /* Each Image */
+    getNum("container_img1", w, h);
+    getNum("container_img2", w, h);
+    getNum("container_img3", w, h);
+    getNum("container_img4", w, h);
+    getNum("container_img5", w, h);
+    getNum("container_img6", w, h);
+    getNum("container_img7", w, h);
+    getNum("container_img8", w, h);
+    getNum("container_img9", w, h);
+    getNum("container_img10", w, h);
+
+    /* Popup */
+    var r2 = (1200/5120) * w;
+    var r3 = (150/5120) * w;
+
+    var r4 = h - (r2/1.5);
+    var r5 = w - (r2/1.8);
+    document.getElementById("image_popup").style.width = r2.toString()+"px";
+    document.getElementById("image_popup").style.height = r2.toString()+"px";
+    document.getElementById("image_popup").style.top = r4.toString()+"px";
+    document.getElementById("image_popup").style.left = r5.toString()+"px";
+
+    document.getElementById("close-btn").style.width = r3.toString()+"px";
+    document.getElementById("close-btn").style.height = r3.toString()+"px";
+  });
+
+  function preload() {
+    for(let i = 0; i < preload.arguments.length; i++) {
+      images[i] = new Image();
+      images[i].src = preload.arguments.src;
+    }
+  }
+
+  function getNum(A, w, h) {
+    var element = document.getElementById(A);
+    var t = element.getBoundingClientRect().top;
+    var l = element.getBoundingClientRect().left;
+
+    var rt = t/2880 * h -20;
+    var rl = l/5120 * w -20;
+
+    element.style.top = rt.toString()+"px";
+    element.style.left = rl.toString()+"px";
+  }
+</script>
+
+<script src="https://cdn.jsdelivr.net/gh/hi098123/prism-for-tistory/prism.js"></script>
